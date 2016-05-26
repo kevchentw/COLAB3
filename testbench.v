@@ -34,9 +34,11 @@ module TestBench;
     #(`CYCLE_TIME)
     
     Start = 1;
-    #(`CYCLE_TIME*560)	
+    #(`CYCLE_TIME*800)	
     
+
   $finish;
+	
   end
   
   always@(posedge Clk) begin

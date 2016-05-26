@@ -47,6 +47,7 @@ always @(*) begin
         4'b0011: result_o =  {src2_i[15:0], 16'h0000};             // LUI
         4'b1000: result_o = $signed(src2_i) >>> shmat_i;              // SRA
 		  4'b1001: result_o = $signed(src2_i) >>> src1_i;              // SRAV
+		  4'b1011: result_o = src1_i * src2_i;
         default: result_o = 0;
     endcase
 end

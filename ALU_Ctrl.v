@@ -12,7 +12,8 @@
 module ALU_Ctrl(
           funct_i,
           ALUOp_i,
-          ALUCtrl_o
+          ALUCtrl_o,
+			 jr_select_o
           );
 
 //I/O ports
@@ -20,15 +21,17 @@ input      [6-1:0] funct_i;
 input      [4-1:0] ALUOp_i;
 
 output     [4-1:0] ALUCtrl_o;
-
+output      jr_select_o;       
 //Internal Signals
 reg        [4-1:0] ALUCtrl_o;
+
+assign jr_select_o = (ALUOp_i == 4'b0010 && funct_i==6'b001000);
 
 //Parameter
 
 // ALUOp_i
 // 4'b000 -> bne
-// 4'b001 -> beq                                    師ㄈ 師ㄈ
+// 4'b001 -> beq                                    師� 師�
 // 4'b010 -> R-Type
 // 4'b011 -> addi
 // 4'b100 -> sltiu
@@ -52,6 +55,7 @@ always @ (*) begin
           6'b101010: ALUCtrl_o = 4'b0111;
           6'b000011: ALUCtrl_o = 4'b1000; // SRA
           6'b000111: ALUCtrl_o = 4'b1001; // SRAV
+			 6'b011000: ALUCtrl_o = 4'b1011; // mul
           default:   ALUCtrl_o = 4'bxxxx;
       endcase
     end
